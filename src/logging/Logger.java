@@ -11,7 +11,7 @@ public class Logger {
 	public static void log(String details){
 		PrintWriter writer;
 		try {
-			writer = new PrintWriter("the-file-name.txt", "UTF-8");
+			writer = new PrintWriter("ErrorLog.txt", "UTF-8");
 			writer.append("\n"+details);
 			writer.close();
 		} catch (FileNotFoundException e) {

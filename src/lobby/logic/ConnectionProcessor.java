@@ -11,9 +11,10 @@ public class ConnectionProcessor {
 		try {
 			connectSock = new DatagramSocket(portNumber);
 		} catch (IOException e) {
-			logging.Logger.logAndDisplayError(
-					"An error occurred whilst trying to make a socket, now exiting",
-					e.getMessage());
+			logging.Logger
+					.logAndDisplayError(
+							"An error occurred whilst trying to make a socket, now exiting",
+							e.getMessage());
 			;
 			System.exit(1);
 		}
@@ -38,6 +39,23 @@ public class ConnectionProcessor {
 	}
 
 	public void createAGame() {
-		
+		String serverData = "DATATOSENDTOSTARTASERVER";
+		byte[] sendData = serverData.getBytes();
+		DatagramPacket sendPacket;
+		try {
+			sendPacket = new DatagramPacket(sendData,
+					sendData.length, InetAddress.getByName("255.255.255.255"), portNumber);
+			connectSock.send(sendPacket);
+		} catch (UnknownHostException e) {
+			logging.Logger.logAndDisplayError(
+					"An error occurred while looking for all IPs on the LAN",
+					e.getMessage());
+			;
+		} catch (IOException e) {
+			logging.Logger.logAndDisplayError(
+					"An error occurred whilst sending out game data",
+					e.getMessage());
+			;
+		}
 	}
 }
